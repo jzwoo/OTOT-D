@@ -4,14 +4,14 @@ services:
     image: confluentinc/cp-zookeeper:latest
     hostname: zk-1
     ports:
-      - "13181:13181"
+      - "10000:10000"
     environment:
       ZOOKEEPER_SERVER_ID: 1
-      ZOOKEEPER_CLIENT_PORT: 13181
+      ZOOKEEPER_CLIENT_PORT: 10000
       ZOOKEEPER_TICK_TIME: 2000
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
-      ZOOKEEPER_SERVERS: zk-1:13888:14888;zk-2:23888:24888;zk-3:33888:34888
+      ZOOKEEPER_SERVERS: zk-1:18881:18882;zk-2:28881:28882;zk-3:38881:38882
     networks:
       - proxy
 
@@ -19,14 +19,14 @@ services:
     image: confluentinc/cp-zookeeper:latest
     hostname: zk-2
     ports:
-      - "23181:23181"
+      - "20000:20000"
     environment:
       ZOOKEEPER_SERVER_ID: 2
-      ZOOKEEPER_CLIENT_PORT: 23181
+      ZOOKEEPER_CLIENT_PORT: 20000
       ZOOKEEPER_TICK_TIME: 2000
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
-      ZOOKEEPER_SERVERS: zk-1:13888:14888;zk-2:23888:24888;zk-3:33888:34888
+      ZOOKEEPER_SERVERS: zk-1:18881:18882;zk-2:28881:28882;zk-3:38881:38882
     networks:
       - proxy
 
@@ -34,14 +34,14 @@ services:
     image: confluentinc/cp-zookeeper:latest
     hostname: zk-3
     ports:
-      - "33181:33181"
+      - "30000:30000"
     environment:
       ZOOKEEPER_SERVER_ID: 3
-      ZOOKEEPER_CLIENT_PORT: 33181
+      ZOOKEEPER_CLIENT_PORT: 30000
       ZOOKEEPER_TICK_TIME: 2000
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
-      ZOOKEEPER_SERVERS: zk-1:13888:14888;zk-2:23888:24888;zk-3:33888:34888
+      ZOOKEEPER_SERVERS: zk-1:18881:18882;zk-2:28881:28882;zk-3:38881:38882
     networks:
       - proxy
 
@@ -49,15 +49,15 @@ services:
     image: confluentinc/cp-kafka:latest
     hostname: kfk-1
     ports:
-      - "20092:20092"
+      - "20001:20001"
     depends_on:
       - zk-1
       - zk-2
       - zk-3
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zk-1:13181,zk-2:13181,zk-3:13181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kfk-1:20092
+      KAFKA_ZOOKEEPER_CONNECT: zk-1:10000,zk-2:10000,zk-3:10000
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kfk-1:20001
     networks:
       - proxy
  
@@ -65,15 +65,15 @@ services:
     image: confluentinc/cp-kafka:latest
     hostname: kfk-2
     ports:
-      - "30092:30092"
+      - "30001:30001"
     depends_on:
       - zk-1
       - zk-2
       - zk-3
     environment:
       KAFKA_BROKER_ID: 2
-      KAFKA_ZOOKEEPER_CONNECT: zk-1:13181,zk-2:13181,zk-3:13181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kfk-2:30092
+      KAFKA_ZOOKEEPER_CONNECT: zk-1:10000,zk-2:10000,zk-3:10000
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kfk-2:30001
     networks:
       - proxy
  
@@ -81,15 +81,15 @@ services:
     image: confluentinc/cp-kafka:latest
     hostname: kfk-3
     ports:
-      - "40092:40092"
+      - "40001:40001"
     depends_on:
       - zk-1
       - zk-2
       - zk-3
     environment:
       KAFKA_BROKER_ID: 3
-      KAFKA_ZOOKEEPER_CONNECT: zk-1:13181,zk-2:13181,zk-3:13181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kfk-3:40092
+      KAFKA_ZOOKEEPER_CONNECT: zk-1:10000,zk-2:10000,zk-3:10000
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kfk-3:40001
     networks:
       - proxy
 
